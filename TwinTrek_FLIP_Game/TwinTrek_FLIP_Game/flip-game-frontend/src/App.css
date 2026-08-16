@@ -1,0 +1,178 @@
+/* 🌐 Root layout */
+:root {
+  font-family: 'Orbitron', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body, #root {
+  margin: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* 🚀 Logo styling */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* 🔄 Logo animation */
+@keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* 🧩 Card layout wrapper */
+.perspective {
+  perspective: 1000px;
+}
+
+.card-container {
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+  aspect-ratio: 1 / 1.2;
+  max-width: 110px;
+  max-height: 130px;
+  margin: 0 auto;
+  display: block;
+}
+
+.card-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* bounce easing */
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+/* ❓ Front side (default image) */
+.card-front {
+  background: linear-gradient(135deg, #2d0a4e, #130026, #050011);
+  box-shadow: inset 0 0 15px rgba(250, 204, 21, 0.4), 0 0 10px rgba(234, 179, 8, 0.5);
+  border: 2px solid #facc15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* 🐾 Back side (deck image) */
+.card-back {
+  transform: rotateY(180deg);
+  background-color: #fff;
+}
+
+/* ✨ Hover effect */
+.card-container:hover .card-inner {
+  transform: scale(1.05);
+}
+
+/* 🌟 Glow effect when card is flipped */
+.card-inner.flipped .card-back {
+  box-shadow: 0 0 15px #00f0ff, 0 0 30px #00f0ff;
+  border: 2px solid #00f0ff;
+}
+
+/* 🎨 Animated border pulse */
+@keyframes borderPulse {
+  0% { box-shadow: 0 0 10px #ff00ff; }
+  50% { box-shadow: 0 0 20px #00f0ff; }
+  100% { box-shadow: 0 0 10px #ff00ff; }
+}
+.card-container:hover {
+  animation: borderPulse 1.5s infinite;
+}
+
+/* 🖼️ Smooth image fade-in */
+.card-back img {
+  opacity: 0;
+  transition: opacity 0.4s ease-in;
+}
+.card-inner.flipped .card-back img {
+  opacity: 1;
+}
+
+/* 🔊 Optional click feedback */
+.card-container:active {
+  transform: scale(0.95);
+}
+
+/* 📱 Responsive adjustments */
+
+/* 💥 CSS Animations from TwinTrek.html */
+.card-shake {
+  animation: shake 0.4s ease;
+}
+@keyframes shake {
+  20% { transform: rotate(-4deg); }
+  40% { transform: rotate(4deg); }
+  60% { transform: rotate(-3deg); }
+  80% { transform: rotate(3deg); }
+  100% { transform: rotate(0); }
+}
+
+.card-pulse {
+  animation: twinPulse 0.9s ease 1;
+}
+@keyframes twinPulse {
+  0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.55); }
+  60% { box-shadow: 0 0 0 14px rgba(236, 72, 153, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+}
+
+/* Confetti */
+.confetti {
+  position: fixed;
+  top: -10px;
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+  z-index: 100;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(540deg); opacity: 0.2; }
+}
