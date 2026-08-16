@@ -179,33 +179,18 @@
         </div>
 
         <div class="step-box">
-            <h2>4. How to Share This Application with Users 🌍</h2>
-            <p>If you want other people to play your game, you have a few options depending on what you want to achieve:</p>
-            
-            <h3>Option A: Sharing via Local Network (Wi-Fi) 🏠</h3>
-            <p>If your friends are on the same Wi-Fi network as you:</p>
+            <h2>4. How to Play the Game 🎮</h2>
+            <p>Welcome to TwinTrek! Your goal is to find all the matching animal pairs as fast as you can. Here is how it works:</p>
             <ol>
-                <li>Find your computer's local IP address (open Command Prompt and type <code>ipconfig</code>, look for IPv4 Address, e.g., <code>192.168.1.5</code>).</li>
-                <li>Start the frontend with the host flag: <code>npm run dev -- --host</code></li>
-                <li>Tell your friends to open their browser on their phone or laptop and go to: <code>http://YOUR_IP_ADDRESS:5173</code></li>
+                <li><strong>Create an Account:</strong> Register a new player account and log in.</li>
+                <li><strong>Choose Difficulty:</strong> Select between Easy (fewer cards), Medium, or Hard (many cards).</li>
+                <li><strong>Flip the Cards:</strong> Click on any two cards to flip them over. If the animals match, they stay face-up!</li>
+                <li><strong>Memorize:</strong> If the cards don't match, they will flip back over. Try to remember their positions!</li>
+                <li><strong>Score Points:</strong> You earn points for finding matches. You earn a <strong>Combo Bonus</strong> if you find multiple matches in a row without making a mistake!</li>
+                <li><strong>Compete:</strong> Complete the board as fast as you can with the fewest moves to climb the Global Leaderboard!</li>
             </ol>
-
-            <h3>Option B: Sharing the Source Code 📂</h3>
-            <p>If you want to send the project to another developer or a teacher:</p>
-            <ol>
-                <li>Delete the <code>node_modules</code> folder inside <code>flip-game-frontend</code> to save space.</li>
-                <li>Delete the <code>target</code> folder in the main directory.</li>
-                <li>Zip the entire <code>TwinTrek_FLIP_Game</code> folder and send it to them.</li>
-                <li>They can follow steps 1-3 in this manual to run it on their machine!</li>
-            </ol>
-
-            <h3>Option C: Publishing to the Internet (Hosting) ☁️</h3>
-            <p>If you want anyone in the world to access it via a link (e.g., <i>twintrek-game.com</i>), you need to host it:</p>
-            <ul>
-                <li><strong>Frontend:</strong> Build the frontend using <code>npm run build</code> and host the <code>dist</code> folder for free on <strong>Vercel</strong>, <strong>Netlify</strong>, or <strong>GitHub Pages</strong>.</li>
-                <li><strong>Backend & Database:</strong> Host your Spring Boot backend on <strong>Render.com</strong>, <strong>Railway.app</strong>, or <strong>Heroku</strong>. You will also need to provision a cloud MySQL database (like Aiven or PlanetScale) and update your <code>application.properties</code> with the cloud database credentials.</li>
-            </ul>
         </div>
+
     </div>
 </body>
 </html>
