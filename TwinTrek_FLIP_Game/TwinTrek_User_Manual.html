@@ -141,8 +141,8 @@
             <ol>
                 <li>Make sure you have <strong>MySQL Server</strong> installed and running (e.g., via XAMPP, WAMP, or MySQL Workbench).</li>
                 <li>Open MySQL and create a new database by running: <br> <code>CREATE DATABASE twintrek_db;</code></li>
-                <li>Alternatively, you can just run the <code>database_setup.sql</code> file provided in the main folder.</li>
-                <li><strong>Important:</strong> The application expects your MySQL username to be <code>root</code> and password to be <code>password</code>. If yours is different, edit these values in <code>src/main/resources/application.properties</code>.</li>
+                <li>Alternatively, you can just run the <code>database_setup.sql</code> file provided in the <code>TwinTrek_FLIP_Game</code> folder.</li>
+                <li><strong>Important:</strong> The application expects your MySQL username to be <code>root</code> and the password to be left blank (empty). If yours is different, edit these values in <code>src/main/resources/application.properties</code>.</li>
             </ol>
             <div class="note">
                 <strong>Note:</strong> You DO NOT need to create any tables manually! Spring Boot and Hibernate will automatically generate all the necessary tables (player, game_session, etc.) when the backend server starts.
@@ -153,7 +153,7 @@
             <h2>2. Running the Backend Server ☕</h2>
             <p>The backend powers the authentication, database storage, and game logic.</p>
             <ol>
-                <li>Open a terminal (Command Prompt or PowerShell) inside the <code>TwinTrek_FLIP_Game</code> folder.</li>
+                <li>Open a terminal (Command Prompt or PowerShell) inside the inner <code>TwinTrek_FLIP_Game\TwinTrek_FLIP_Game</code> folder (where the pom.xml is located).</li>
                 <li>Run the following command to start the Spring Boot server:
                     <pre>.\mvnw spring-boot:run</pre>
                 </li>

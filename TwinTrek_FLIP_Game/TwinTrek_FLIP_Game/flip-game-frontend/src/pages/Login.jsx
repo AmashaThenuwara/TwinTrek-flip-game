@@ -33,13 +33,13 @@ export default function Login() {
                 <form onSubmit={submit} className="w-full flex flex-col gap-5">
                     
                     <div className="flex flex-col gap-2">
-                        <label className="text-left text-white/90 text-sm font-light tracking-wide">Email address</label>
+                        <label className="text-left text-white/90 text-sm font-light tracking-wide">Username</label>
                         <input
                             type="text"
                             className="w-full bg-transparent border border-cyan-400/50 text-white placeholder-white/40 text-base px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-300 focus:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all"
-                            placeholder="example@gmail.com"
-                            value={form.email || form.username || ""}
-                            onChange={(e) => setForm({ ...form, email: e.target.value, username: e.target.value })}
+                            placeholder="CaptainTrek"
+                            value={form.username || ""}
+                            onChange={(e) => setForm({ ...form, username: e.target.value })}
                             required
                         />
                     </div>
