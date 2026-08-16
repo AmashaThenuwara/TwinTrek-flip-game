@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login";     // match folder casing!
 import Register from "./Pages/Register";
 import Profile from "./Pages/Profile";
+import Figures from "./Pages/Figures";
+import Instructions from "./Pages/Instructions";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -16,6 +18,8 @@ createRoot(document.getElementById("root")).render(
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/figures" element={<Figures />} />
+                <Route path="/instructions" element={<Instructions />} />
             </Routes>
         </BrowserRouter>
     </StrictMode>

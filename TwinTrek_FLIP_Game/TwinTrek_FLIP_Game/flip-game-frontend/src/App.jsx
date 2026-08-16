@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { api } from "./api/client";
 import Leaderboard from "./components/Leaderboard";
 import GameBoard from "./components/GameBoard";
 import Scoreboard from "./components/Scoreboard";
@@ -105,6 +106,40 @@ export default function App() {
         else if (moves <= parMoves * 1.5) stars = 2;
     }
 
+    const handleRestart = async () => {
+        const authedId = localStorage.getItem("playerId");
+        const playerId = (authedId && authedId !== "undefined" && authedId !== "null") ? Number(authedId) : 1;
+        
+        let difficulty = "CASUAL";
+        if (deck.length === 36) difficulty = "MEDIUM";
+        else if (deck.length === 64) difficulty = "HARD";
+        
+        try {
+            const resp = await api.post("/game/start", {
+                playerId,
+                difficulty,
+                aiEnabled: false,
+            });
+            
+            setSession(resp.sessionId);
+            setDeck(resp.imageNames);
+            setMoves(0);
+            setScore(0);
+            setCombo(0);
+            setMatched(new Set());
+            setGameCompleted(false);
+            setGameFailed(false);
+            
+            if (resp.imageNames.length === 16) setTimeRemaining(60);
+            else if (resp.imageNames.length === 36) setTimeRemaining(120);
+            else if (resp.imageNames.length === 64) setTimeRemaining(240);
+            else setTimeRemaining(60);
+        } catch (error) {
+            console.error("Error restarting game:", error);
+            alert("Failed to restart game.");
+        }
+    };
+
     // Show game board once session is active
     
     const authedId = localStorage.getItem("playerId");
@@ -114,12 +149,20 @@ export default function App() {
     return (
         <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center p-4 sm:p-8 w-full relative z-10 overflow-hidden gap-8 lg:gap-16">
             
+            {/* Dedicated Main Menu Button */}
+            <button 
+                className="absolute top-4 left-4 z-50 flex items-center gap-2 bg-[#1a132b]/80 backdrop-blur-md border border-cyan-500/30 pl-3 pr-4 py-2 rounded-full cursor-pointer shadow-[0_0_15px_rgba(34,211,238,0.2)] hover:bg-cyan-900/50 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all text-cyan-100"
+                onClick={() => setSession(null)}
+                title="Back to Menu"
+            >
+                <span className="text-xl drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">🔙</span>
+                <span className="font-bold text-sm tracking-widest uppercase mt-0.5">Menu</span>
+            </button>
+
             {/* Topbar User Chip in Game View */}
             {(authedId && authedId !== "undefined" && authedId !== "null") && (
                 <div 
-                    className="absolute top-4 left-4 z-50 flex items-center gap-3 bg-[#1a132b]/80 backdrop-blur-md border border-purple-500/30 pl-2 pr-4 py-2 rounded-full cursor-pointer shadow-[0_0_15px_rgba(168,85,247,0.2)] hover:bg-purple-900/50 hover:border-pink-500/50 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] transition-all"
-                    onClick={() => setSession(null)} // Click goes back to Leaderboard (menu)
-                    title="Back to Menu"
+                    className="absolute top-4 right-4 z-50 flex items-center gap-3 bg-[#1a132b]/80 backdrop-blur-md border border-purple-500/30 pl-2 pr-4 py-2 rounded-full shadow-[0_0_15px_rgba(168,85,247,0.2)]"
                 >
                     <div className="w-10 h-10 bg-[#0f0b1a] rounded-full flex items-center justify-center text-xl shadow-inner border border-purple-500/20">
                         {authedAvatar}
@@ -173,22 +216,13 @@ export default function App() {
                         <span className="text-xs font-black tracking-widest uppercase">Sound {soundOn ? 'On' : 'Off'}</span>
                     </button>
                     <button 
-                        onClick={() => window.location.reload()}
+                        onClick={handleRestart}
                         className="w-full p-6 flex items-center justify-center gap-4 text-lg btn-shiny btn-super btn-colorful"
                     >
                         <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                            <span className="text-lg drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">🚀</span>
+                            <span className="text-lg drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">🔄</span>
                         </div>
-                        <span className="text-xs font-black tracking-widest uppercase drop-shadow-md">New Game</span>
-                    </button>
-                    <button 
-                        onClick={() => window.location.reload()}
-                        className="w-full p-6 flex items-center justify-center gap-4 text-lg btn-shiny btn-super btn-colorful"
-                    >
-                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                            <span className="text-lg drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">🔙</span>
-                        </div>
-                        <span className="text-xs font-black tracking-widest uppercase drop-shadow-md">Main Menu</span>
+                        <span className="text-xs font-black tracking-widest uppercase drop-shadow-md">Refresh</span>
                     </button>
                 </div>
             </div>
@@ -228,18 +262,11 @@ export default function App() {
                     <span className="text-xs sm:text-sm font-black tracking-widest uppercase">Sound</span>
                 </button>
                 <button 
-                    onClick={() => window.location.reload()}
+                    onClick={handleRestart}
                     className="flex-[1.2] py-6 px-4 rounded-[2rem] flex flex-col sm:flex-row items-center justify-center gap-3 text-white btn-colorful border-b-[6px] border-black/50 shadow-[0_0_20px_rgba(236,72,153,0.4)] active:border-b-0 active:translate-y-[6px] transition-all"
                 >
-                    <span className="text-3xl sm:text-2xl drop-shadow-md">🚀</span>
-                    <span className="text-xs sm:text-sm font-black tracking-widest uppercase drop-shadow-md">Restart</span>
-                </button>
-                <button 
-                    onClick={() => window.location.reload()}
-                    className="flex-[1.2] py-6 px-4 rounded-[2rem] flex flex-col sm:flex-row items-center justify-center gap-3 text-white btn-colorful border-b-[6px] border-black/50 shadow-[0_0_20px_rgba(34,211,238,0.4)] active:border-b-0 active:translate-y-[6px] transition-all"
-                >
-                    <span className="text-3xl sm:text-2xl drop-shadow-md">🔙</span>
-                    <span className="text-xs sm:text-sm font-black tracking-widest uppercase drop-shadow-md">Menu</span>
+                    <span className="text-3xl sm:text-2xl drop-shadow-md">🔄</span>
+                    <span className="text-xs sm:text-sm font-black tracking-widest uppercase drop-shadow-md">Refresh</span>
                 </button>
             </div>
 
@@ -295,13 +322,13 @@ export default function App() {
                         <div className="flex flex-col gap-3 w-full mt-6 z-10">
                             <button 
                                 className="w-full py-5 btn-super btn-shiny btn-colorful text-2xl"
-                                onClick={() => window.location.reload()}
+                                onClick={handleRestart}
                             >
                                 PLAY AGAIN
                             </button>
                             <button 
                                 className="w-full py-4 btn-super text-lg bg-[#1a132b] text-purple-300 border border-purple-500/30 hover:bg-purple-900/50 hover:text-white"
-                                onClick={() => window.location.reload()}
+                                onClick={() => setSession(null)}
                             >
                                 MAIN MENU
                             </button>
