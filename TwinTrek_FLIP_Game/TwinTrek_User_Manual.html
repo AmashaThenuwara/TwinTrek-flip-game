@@ -154,8 +154,8 @@
             <p>The backend powers the authentication, database storage, and game logic.</p>
             <ol>
                 <li>Open a terminal (Command Prompt or PowerShell) inside the inner <code>TwinTrek_FLIP_Game\TwinTrek_FLIP_Game</code> folder (where the pom.xml is located).</li>
-                <li>Run the following command to start the Spring Boot server:
-                    <pre>.\mvnw spring-boot:run</pre>
+                <li>Run the following script to safely start the Spring Boot server (this will automatically clean up any stuck ports!):
+                    <pre>.\start-server.bat</pre>
                 </li>
                 <li>Wait until you see <code>Started TwinTrekFlipGameApplication</code>. The server is now running on port <code>8080</code>.</li>
             </ol>
